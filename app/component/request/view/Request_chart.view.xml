@@ -1,0 +1,78 @@
+<mvc:View
+    controllerName="project1.component.request.controller.Request_chart"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:t="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:grid="sap.ui.layout.cssgrid"
+    xmlns:micro="sap.suite.ui.microchart"
+    xmlns:card="sap.f.cards"
+    height="100%"
+>
+    <f:DynamicPage id="RequestPage">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <Button 
+                            icon="sap-icon://nav-back"
+                            press="onRequesthome"    
+                            type="Transparent"
+                        />
+                        <Title text="물품 요청 현황" />
+                    </HBox>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:content class="sapUiSmallMargin">
+            <grid:CSSGrid class="cssgridpadding">
+                <grid:customLayout>
+                    <grid:ResponsiveColumnLayout />
+                </grid:customLayout>
+                <f:Card class="sapUimediumMarginBeginEnd sapUiTinyMarginTop">
+                    <f:header>
+                        <card:Header title="이번 달 물품 요청 처리 현황({state>/newChartQuantity} 건)" iconSrc="sap-icon://donut-chart" />
+                    </f:header>
+                    <f:content>
+                        <micro:InteractiveDonutChart class="sapUiMediumMarginTop"  displayedSegments="3">
+                            <micro:segments>
+                                <micro:InteractiveDonutChartSegment 
+                                    label="승인({state>/newChartaQuantity} 건)" 
+                                    value="{state>/approve}" 
+                                    displayedValue="{state>/approvepercent}" />
+                                <micro:InteractiveDonutChartSegment 
+                                    label="처리 대기({state>/newChartbQuantity} 건)" 
+                                    value="{state>/wait}" 
+                                    displayedValue="{state>/waitpercent}" />
+                                <micro:InteractiveDonutChartSegment 
+                                    label="반려({state>/newChartcQuantity} 건)" 
+                                    value="{state>/reject}" 
+                                    displayedValue="{state>/rejectpercent}" />
+                            </micro:segments>
+                        </micro:InteractiveDonutChart>
+                    </f:content>
+                    <f:layoutData>
+                        <grid:ResponsiveColumnItemLayoutData columns="7" rows="1" />
+                    </f:layoutData>
+                </f:Card>
+                <!-- <f:Card class="sapUimediumMarginBeginEnd sapUiTinyMarginTop">
+                    <f:header>
+                        <card:Header title="물품 요청 처리 현황" iconSrc="sap-icon://donut-chart" />
+                    </f:header>
+                    <f:content>
+                        <micro:InteractiveDonutChart class="sapUiMediumMarginTop"  displayedSegments="3">
+                            <micro:segments>
+                                <micro:InteractiveDonutChartSegment label="승인" value="{state>/approve}" displayedValue="{state>/approvepercent}" />
+                                <micro:InteractiveDonutChartSegment label="처리 대기" value="{state>/wait}" displayedValue="{state>/waitpercent}" />
+                                <micro:InteractiveDonutChartSegment label="반려" value="{state>/reject}" displayedValue="{state>/rejectpercent}" />
+                            </micro:segments>
+                        </micro:InteractiveDonutChart>
+                    </f:content>
+                    <f:layoutData>
+                        <grid:ResponsiveColumnItemLayoutData columns="7" rows="1" />
+                    </f:layoutData>
+                </f:Card> -->
+            </grid:CSSGrid>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

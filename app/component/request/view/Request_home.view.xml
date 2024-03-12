@@ -1,0 +1,70 @@
+<mvc:View
+    controllerName="project1.component.request.controller.Request_home"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:card="sap.f.cards"
+>
+    <ScrollContainer height="100%" width="100%" vertical="true" focusable="true">
+        <Panel width="auto" class="sapUiResponsiveMargin" accessibleRole="Region">
+            <content class="panelbottonline">
+                <HBox width="100%" height="3rem">
+                    <Title text="물품 요청 관리" />
+                </HBox>
+
+                <GenericTile 
+                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                    header="물품 요청 목록"
+                    press=".onRequest_list"
+                >
+                    <TileContent>
+                        <ImageContent src="sap-icon://survey" />
+                    </TileContent>
+                </GenericTile>
+                <GenericTile 
+                    class="sapUiTinyMarginBegin sapUiTinyMarginTop"
+                    header="물품 요청 현황"
+                    press=".onRequest_chart"
+                >
+                    <TileContent>
+                        <ImageContent src="sap-icon://bar-chart" />
+                    </TileContent>
+                </GenericTile>
+
+                <HBox width="100%" height="3rem"/>
+                <HBox width="100%" height="3rem">
+                    <Title text="물품 요청 OverView" />
+                </HBox>
+
+                <f:Card class="sapUiMediumMargin" width="300px">
+                    <f:header>
+                        <card:Header title="물품 요청 대기 목록"
+                                    subtitle="최신 3개의 처리 대기 데이터가 보입니다." />
+                    </f:header>
+                    <f:content>
+                        <List showSeparators="None" items="{ 
+                            path: 'RequestModel>/'
+                         }">
+                            <CustomListItem>
+                                <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                    <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                        <Title level="H3" text="{RequestModel>request_product}" />
+                                        <Text text="{RequestModel>requestor}" />
+                                    </VBox>
+                                    <ObjectStatus 
+                                        class="sapUiTinyMargin sapUiSmallMarginEnd" 
+                                        text="{ 
+                                            path: 'RequestModel>request_state',
+                                            formatter: '.formatter.statusText'
+                                        }"
+                                        state="None" 
+                                    />
+                                </HBox>
+                            </CustomListItem>
+                         </List>
+                    </f:content>
+                </f:Card>
+            </content>
+        </Panel>
+    </ScrollContainer>
+</mvc:View>

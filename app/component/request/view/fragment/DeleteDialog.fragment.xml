@@ -1,0 +1,18 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+>
+    <Dialog 
+        id="DeleteDialog"
+    >
+        <content>
+            <Text text="정말 삭제하시겠습니까?" />
+        </content>
+        <beginButton>
+            <Button text="확인" press=".onDeleteOrder" />
+        </beginButton>
+        <endButton>
+            <Button text="취소" press=".onCancelDeleteDialog" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

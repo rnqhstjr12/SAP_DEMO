@@ -1,0 +1,190 @@
+{
+  "_version": "1.59.0",
+  "sap.app": {
+    "id": "project1.product",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.12.5",
+      "toolsId": "5d92df4b-382d-4c35-95f9-a5fb96108d98"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/srv-api/request/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      },
+      "productService": {
+        "uri": "/srv-api/product/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.120.9",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "project1.component.product.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "groupId": "$auto",
+          "synchronizationMode": "None",
+          "autoExpandSelect": true
+        },
+        "productService": {
+          "dataSource": "productService",
+          "preload": true,
+          "settings": {
+            "operationMode": "Server",
+            "groupId": "$auto",
+            "synchronizationMode": "None",
+            "autoExpandSelect": true
+          }
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.f.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "project1.component.product.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "Product_home",
+          "pattern": "",
+          "target": [
+            "Product_home"
+          ],
+          "layout": "OneColumn"
+        },
+        {
+          "name": "Product",
+          "pattern": "Product",
+          "target": [
+            "Product"
+          ],
+          "layout": "OneColumn"
+        },
+        {
+          "name": "ProductDetail",
+          "pattern": "ProductDetail/{num}",
+          "target": [
+            "Product",
+            "ProductDetail"
+          ],
+          "layout": "TwoColumnsMidExpanded"
+        },
+        {
+          "name": "Product_create",
+          "pattern": "Product_create/{num}",
+          "target": [
+            "Product_create"
+          ],
+          "layout": "OneColumn"
+        }
+      ],
+      "targets": {
+        "Product_home": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "Product_home",
+          "viewName": "Product_home",
+          "controlAggregation": "beginColumnPages"
+        },
+        "Product": {
+          "viewType": "XML",
+          "transition":"slide",
+          "clearControlAggregation": false,
+          "viewId": "Product",
+          "viewName": "Product",
+          "controlAggregation": "beginColumnPages"
+        },
+        "ProductDetail": {
+          "viewType": "XML",
+          "transition":"slide",
+          "viewId": "ProductDetail",
+          "viewName": "ProductDetail",
+          "controlAggregation": "midColumnPages"
+        },
+        "Product_create": {
+          "viewType": "XML",
+          "transition":"slide",
+          "viewId": "Product_create",
+          "viewName": "Product_create",
+          "controlAggregation": "beginColumnPages"
+        }
+      }
+    },
+    "rootView": {
+      "viewName": "project1.component.product.view.app",
+      "type": "XML",
+      "async": true,
+      "id": "appView"
+    }
+  }
+}

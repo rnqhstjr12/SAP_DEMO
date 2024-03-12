@@ -1,0 +1,17 @@
+FUNCTION f_get_seq(
+    var_table NVARCHAR(50)
+    )
+    RETURN var_seq NVARCHAR(50)
+    LANGUAGE SQLSCRIPT
+    SQL SECURITY INVOKER AS
+    BEGIN 
+        IF var_table = 'PR' THEN
+        SELECT CONCAT(var_table, LPAD(PR_SEQ.nextval, 10, '0')) INTO var_seq
+        FROM DEMO_PRODUCT_LIST
+        LIMIT 1;
+        ELSEIF var_table = 'RE' THEN
+        SELECT CONCAT(var_table, LPAD(RE_SEQ.nextval, 10, '0')) INTO var_seq
+        FROM DEMO_REQUEST_LIST
+        LIMIT 1;
+    END IF
+END;

@@ -1,0 +1,238 @@
+<mvc:View 
+    controllerName="project1.component.request.controller.Request"
+    xmlns="sap.m"    
+    xmlns:f="sap.f"
+    xmlns:t="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core"
+    height="100%"
+>
+    <f:DynamicPage 
+        id="RequestPage"
+        toggleHeaderOnTitleClick="false">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <Button
+                            icon="sap-icon://nav-back"
+                            press="onRequesthome"
+                            type="Transparent"
+                        />
+                        <Title text="물품 요청 목록"/>
+                    </HBox>
+                </f:heading>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:header>
+            <f:DynamicPageHeader pinnable="false">
+                <form:SimpleForm layout="ResponsiveGridLayout">
+                    <form:content>
+                        <VBox>
+                            <Label text="요청 번호 : "/>
+                            <Input id="ReqNum"/>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox>
+                            <Label text="요청 물품 : "/>
+                            <Input 
+                                id="ReqGood"
+                                placeholder="Enter product"
+                                showSuggestion="true"
+                                showValueHelp="true"
+                                valueHelpRequest=".onValueHelpRequest"
+                                suggestionItems="{ProductModel>/}"
+                            >
+                                <suggestionItems>
+                                    <core:Item text="{ProductModel>product_name}" />
+                                </suggestionItems>
+                            </Input>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox>
+                            <Label text="요청자 : "/>
+                            <Input id="Requester"/>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox>
+                            <Label text="처리 상태 : "/>
+                            <Select width="100%" id="ReqStatus">
+                                <core:Item text="전체"/>
+                                <core:Item text="승인" key="A"/>
+                                <core:Item text="처리 대기" key="B"/>
+                                <core:Item text="반려" key="C"/>
+                            </Select>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox>
+                            <Label text="요청 일자(시작) : "/>
+                            <DatePicker 
+                                id="ReqDateStart"
+                                displayFormat="yyyy-MM-dd"/>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox>
+                            <Label text="요청 일자(끝) : "/>
+                            <DatePicker 
+                                id="ReqDateEnd"
+                                displayFormat="yyyy-MM-dd"/>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox>
+                            <Label text="가격 최소 범위 : "/>
+                            <Input id="ReqPriceStart"/>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <VBox>
+                            <Label text="가격 최대 범위 : "/>
+                            <Input id="ReqPriceEnd"/>
+                            <layoutData>
+                                <layout:GridData span="XL3 L3 M6 S12"/>
+                            </layoutData>
+                        </VBox>
+                        <HBox justifyContent="End">
+                            <Button text="검색" type="Emphasized" press="onSearch"/>
+                            <Button text="초기화" type="Transparent" press="onReset" class="sapUiTinyMarginBegin"/>
+                            <layoutData>
+                                <layout:GridData  span="XL12 L12 M12 S12"/>
+                            </layoutData>
+                        </HBox>
+                    </form:content>
+                </form:SimpleForm>
+            </f:DynamicPageHeader>
+        </f:header>
+        <f:content class="sapUiSmallMargin">
+            <t:Table
+                id="RequestTable"
+                rows="{RequestModel>/}"
+                selectionMode="None"
+                rowActionCount="1"
+                width="auto">
+
+                <t:extension>
+                    <OverflowToolbar>
+                        <Title id="TableName" text="물품 요청 목록"/>
+                        <ToolbarSpacer/>
+                        <Button 
+                            text="물품 요청 생성"
+                            press="onCreateOrder"
+                            type="Transparent"
+                        />
+                        <Button 
+                            icon="sap-icon://delete"
+                            tooltip="삭제"
+                            press="onDeleteDialog"
+                            type="Transparent"
+                        />
+                        <Button
+                            icon="sap-icon://sort"
+                            tooltip="정렬"
+                            press="onSort"
+                            type="Transparent"
+                        />
+                        <Button
+                            icon="sap-icon://excel-attachment"
+                            tooltip="Excel Download"
+                            press=".onDataExport"
+                            type="Transparent"
+                        />
+                    </OverflowToolbar>
+                </t:extension>
+
+                <t:columns>
+                    <t:Column hAlign="Center" width="5rem">
+                        <Label text="" />
+                        <t:template>
+                            <CheckBox 
+                                visible="{= ${RequestModel>request_state} === 'B' ? true : false}"
+                                selected="{RequestModel>CHK}" textAlign="Center" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Center">
+                        <Label text="요청 번호" />
+                        <t:template>
+                            <Text text="{RequestModel>request_number}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Center">
+                        <Label text="요청 물품" />
+                        <t:template>
+                            <Text text="{RequestModel>request_product}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Right">
+                        <Label text="물품 개수" />
+                        <t:template>
+                            <Text text="{RequestModel>request_quantity}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Right">
+                        <Label text="예상 가격" />
+                        <t:template>
+                            <Text text='{=
+                                ${RequestModel>request_estimated_price}.toLocaleString("ko-KR")
+                            }'/>
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Center">
+                        <Label text="요청자" />
+                        <t:template>
+                            <Text text="{RequestModel>requestor}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Center">
+                        <Label text="요청 일자" />
+                        <t:template>
+                            <Text text="{RequestModel>request_date}" />
+                        </t:template>
+                    </t:Column>
+                    <t:Column hAlign="Center">
+                        <Label text="처리 상태" />
+                        <t:template>
+                            <ObjectStatus 
+                            text="{ 
+                                path: 'RequestModel>request_state',
+                                formatter: '.formatter.statusText'
+                            }"
+                            state="{=
+                                ${RequestModel>request_state} === 'A' ? 'Success' :
+                                ${RequestModel>request_state} === 'C' ? 'Error' :
+                                'None'
+                            }" 
+                            active="{=
+                                ${RequestModel>request_state} === 'C' ? true : false
+                            }"
+                            press="onShowRejectReason"
+                            />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+                <t:rowActionTemplate>
+                    <t:RowAction>
+                        <t:items>
+                            <t:RowActionItem
+                                type="Navigation"
+                                press="onNavToDetail" />
+                        </t:items>
+                    </t:RowAction>
+                </t:rowActionTemplate>
+            </t:Table>
+        </f:content>
+    </f:DynamicPage>
+</mvc:View>

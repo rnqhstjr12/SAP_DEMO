@@ -1,0 +1,113 @@
+<mvc:View controllerName="project1.component.request.controller.OrderDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout">
+    <f:DynamicPage id="page"
+        headerExpanded="false"
+        showFooter="true"
+        toggleHeaderOnTitleClick="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <OverflowToolbarButton 
+                            id="NavBackButton"
+                            type="Transparent"
+                            icon="sap-icon://nav-back"
+                            press="onBack" 
+                        />
+                        <Title text="물품 요청 상세" />
+                    </HBox>
+                </f:heading>
+                <f:snappedContent>
+                    <form:SimpleForm layout="ResponsiveGridLayout">
+                        <form:content>
+                            <VBox>
+                                <Label text="요청 번호" />
+                                <Text id="ReqNum" text="{RequestModel>/0/request_number}" />
+                                <layoutData>
+                                    <layout:GridData span="XL2 L2 M4 S4" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="요청 일자" />
+                                <Text id="ReqDate" text="{RequestModel>/0/request_date}" />
+                                <layoutData>
+                                    <layout:GridData span="XL2 L2 M4 S4" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="요청 상태" />
+                                <ObjectStatus
+                                    id="ReqStatus"
+                                    text="{
+                                        path: 'RequestModel>/0/request_state',
+                                        formatter: '.formatter.statusText'
+                                    }"
+                                    state="{= 
+                                        ${RequestModel>/0/request_state} === 'A' ? 'Success' :
+                                        ${RequestModel>/0/request_state} === 'C' ? 'Error' :
+                                        'None'
+                                    }" />
+                                <layoutData>
+                                    <layout:GridData span="XL2 L2 M4 S4" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="요청 물품" />
+                                <Text id="ReqGood" text="{RequestModel>/0/request_product}" />
+                                <layoutData>
+                                    <layout:GridData span="XL6 L6 M3 S12" linebreak="true" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="물품 개수" />
+                                <Text id="ReqQty" text="{RequestModel>/0/request_quantity}" />
+                                <layoutData>
+                                    <layout:GridData span="XL6 L6 M3 S12" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="요청자" />
+                                <Text id="Requester" text="{RequestModel>/0/requestor}" />
+                                <layoutData>
+                                    <layout:GridData span="XL6 L6 M3 S12" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="예상 가격" />
+                                <Text id="ReqPrice" text="{= ${RequestModel>/0/request_estimated_price}.toLocaleString('ko-KR')}" />
+                                <layoutData>
+                                    <layout:GridData span="XL6 L6 M3 S12" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="요청 사유" />
+                                <Text id="ReqReason" text="{RequestModel>/0/request_reason}" />
+                                <layoutData>
+                                    <layout:GridData span="XL12 L12 M12 S12" />
+                                </layoutData>
+                            </VBox>
+                            <VBox visible="{visibleMode>/reject}">
+                                <Label text="요청 거절 사유" />
+                                <Text id="ReqReject" text="{RequestModel>/0/request_reject_reason}" />
+                                <layoutData>
+                                    <layout:GridData span="XL12 L12 M12 S12" />
+                                </layoutData>
+                            </VBox>
+                        </form:content>
+                    </form:SimpleForm>
+                </f:snappedContent>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:footer>
+            <OverflowToolbar visible="{visibleMode>/footer}">
+                <ToolbarSpacer />
+                <Button type="Emphasized" text="승인" press="onApprove" />
+                <Button type="Default" text="반려" press="onReject" />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>
