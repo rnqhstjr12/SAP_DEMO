@@ -1,0 +1,74 @@
+<mvc:View controllerName="project1.component.product.controller.ProductDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:layout="sap.ui.layout">
+    <f:DynamicPage id="page"
+        headerExpanded="false"
+        showFooter="true"
+        toggleHeaderOnTitleClick="true">
+        <f:title>
+            <f:DynamicPageTitle>
+                <f:heading>
+                    <HBox>
+                        <OverflowToolbarButton 
+                            id="NavBackButton"
+                            type="Transparent"
+                            icon="sap-icon://nav-back"
+                            press="onBack" 
+                        />
+                        <Title text="물품 상세" />
+                    </HBox>
+                </f:heading>
+                <f:snappedContent>
+                    <form:SimpleForm layout="ResponsiveGridLayout">
+                        <form:content>
+                            <VBox>
+                                <Label text="물품 번호" />
+                                <Text id="ProductId" text="{ProductModel>/0/product_id}" />
+                                <layoutData>
+                                    <layout:GridData span="XL2 L2 M4 S4" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="물품 등록 일자" />
+                                <Text id="ProductDate" text="{ProductModel>/0/product_date}" />
+                                <layoutData>
+                                    <layout:GridData span="XL2 L2 M4 S4" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="물품 이름" />
+                                <Text id="ProductName" text="{ProductModel>/0/product_name}" />
+                                <layoutData>
+                                    <layout:GridData span="XL6 L6 M3 S12" linebreak="true" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="물품 가격" />
+                                <Text id="ProductPrice" text="{= ${ProductModel>/0/product_price}.toLocaleString('ko-KR')}" />
+                                <layoutData>
+                                    <layout:GridData span="XL6 L6 M3 S12" />
+                                </layoutData>
+                            </VBox>
+                            <VBox>
+                                <Label text="물품 설명" />
+                                <Text id="ProductInfo" text="{ProductModel>/0/product_information}" />
+                                <layoutData>
+                                    <layout:GridData span="XL12 L12 M12 S12" />
+                                </layoutData>
+                            </VBox>
+                        </form:content>
+                    </form:SimpleForm>
+                </f:snappedContent>
+            </f:DynamicPageTitle>
+        </f:title>
+        <f:footer>
+            <OverflowToolbar visible="{visibleMode>/footer}">
+                <ToolbarSpacer />
+                <Button type="Default" text="수정" press="onModifyDialog" />
+            </OverflowToolbar>
+        </f:footer>
+    </f:DynamicPage>
+</mvc:View>

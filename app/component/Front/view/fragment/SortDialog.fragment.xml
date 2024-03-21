@@ -1,0 +1,15 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <ViewSettingsDialog
+        id="SortDialog"
+        confirm="onConfirmSortDialog"
+        title="물품 목록 정렬">
+        <sortItems>
+            <ViewSettingsItem text="물품 번호" key="product_id" selected="true"/>
+            <ViewSettingsItem text="물품 이름" key="product_name"/>
+            <ViewSettingsItem text="물품 가격" key="product_price"/>
+            <ViewSettingsItem text="물품 등록 일자" key="product_date"/>
+        </sortItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition>

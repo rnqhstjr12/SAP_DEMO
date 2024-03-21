@@ -87,7 +87,9 @@
                             <Label text="요청 일자(끝) : "/>
                             <DatePicker 
                                 id="ReqDateEnd"
-                                displayFormat="yyyy-MM-dd"/>
+                                displayFormat="yyyy-MM-dd"
+                                change=""
+                            />
                             <layoutData>
                                 <layout:GridData span="XL3 L3 M6 S12"/>
                             </layoutData>
